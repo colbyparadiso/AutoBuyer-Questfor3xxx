@@ -1,6 +1,11 @@
 package com.gpu.autobuy;
 
 import lombok.Data;
+
+import java.sql.SQLException;
+
+import javax.annotation.sql.DataSourceDefinition;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.namedparam.MapSqlParameterSource;
 import org.springframework.jdbc.core.namedparam.NamedParameterJdbcTemplate;
@@ -12,6 +17,9 @@ import org.springframework.web.bind.annotation.RestController;
 public class HelloController {
     @Autowired
     NamedParameterJdbcTemplate jdbcTemplate;
+    int templ;
+    int tempr;
+    long tempans;
 
     @RequestMapping("/")
     public String hello() {
@@ -32,6 +40,6 @@ public class HelloController {
                 .addValue("left", left)
                 .addValue("right", right);
         return jdbcTemplate.queryForObject("SELECT :left + :right AS answer", source,
-                (rs, rowNum) -> new Result(left, right, rs.getLong("answer")));
+                (rs, rowNum) -> new Result(left, right, rs.getLong("answer"))); 
     }
 }
